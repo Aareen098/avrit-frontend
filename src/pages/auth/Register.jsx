@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,9 +11,14 @@ import GoogleSection from "@/features/auth/GoogleSection";
 import PasswordStrength from "@/features/auth/PasswordStrength";
 import { candidatePanel } from "@/features/auth/panels";
 import { registerSchema } from "@/features/auth/authSchemas";
+import { registerCandidate } from "@/api/auth.api";
+import { useAuthStore } from "@/store/authStore";
+import { homeFor } from "@/utils/constants";
 
 export default function Register() {
   const navigate = useNavigate();
+  const setSession = useAuthStore((s) => s.setSession);
+  const [serverError, setServerError] = useState("");
   const {
     register,
     handleSubmit,
@@ -26,10 +32,15 @@ export default function Register() {
 
   const passwordValue = useWatch({ control, name: "password" });
 
-  const onSubmit = async (data) => {
-    // TODO: POST /auth/register on the Spring Boot API
-    await new Promise((r) => setTimeout(r, 600));
-    navigate(`/verify-email?email=${encodeURIComponent(data.email)}`);
+    const onSubmit = async (data) => {
+    setServerError("");
+    try {
+      const session = await registerCandidate(data);
+      setSession(session);
+      navigate(homeFor(session.user.role), { replace: true });
+    } catch (err) {
+      setServerError(err.message);
+    }
   };
 
   return (
@@ -63,6 +74,11 @@ export default function Register() {
         <Button type="submit" size="lg" fullWidth loading={isSubmitting}>
           Create account
         </Button>
+        {serverError && (
+          <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">
+            {serverError}
+          </p>
+        )}
       </form>
 
       <div className="mt-8 space-y-2 text-center text-sm text-slate-500">

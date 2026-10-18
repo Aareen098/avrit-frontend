@@ -66,6 +66,33 @@ function errorMessage(err, fallback) {
 }
 
 // Expected from Spring Boot:
+// POST /auth/register  { name, email, password }
+//   ->  { token, user: { ..., role: "CANDIDATE" } }
+// Creates a candidate account and logs them in.
+export async function registerCandidate(form) {
+  const name = form.fullName.trim();
+  const email = form.email.trim();
+
+  if (USE_MOCK) {
+    await wait(600);
+    const users = readList(USERS_KEY);
+    if (users.some((u) => u.email.toLowerCase() === email.toLowerCase())) {
+      throw new Error("An account with this email already exists");
+    }
+    const user = { id: Date.now(), name, email, role: ROLES.CANDIDATE };
+    localStorage.setItem(USERS_KEY, JSON.stringify([...users, user]));
+    return { token: "mock-token", user };
+  }
+
+  try {
+    const { data } = await api.post("/auth/register", { name, email, password: form.password });
+    return toSession(data);
+  } catch (err) {
+    throw new Error(errorMessage(err, "Could not create the account"), { cause: err });
+  }
+}
+
+// Expected from Spring Boot:
 // POST /auth/login  { email, password }
 //   ->  { token, user: { id, name, email, role, companyId, companyName, companySlug } }
 // (candidates have no company, so those three fields are empty for them)
