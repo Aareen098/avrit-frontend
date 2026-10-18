@@ -1,16 +1,34 @@
-# React + Vite
+# HireFlow: AI-powered hiring platform (frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Multi-company applicant tracking system with AI CV screening and a recruiter chat assistant.
 
-Currently, two official plugins are available:
+**Live demo:** https://hireflow-frontend-theta.vercel.app/ (use the one-click demo buttons on the login page)
+**Backend repo:** https://github.com/Aareen098/hireflow-backend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> The backend runs on a free plan and sleeps when unused. The first request can take up to a minute.
 
-## React Compiler
+## Features
+- Multiple companies on one platform; each only sees its own data
+- Jobs, applications, candidate pipeline (drag and drop), interviews, settings
+- Public careers page per company (`/c/<company-slug>`) with CV upload
+- AI CV screening: score, summary and reasons
+- AI assistant: ask questions about your candidates in plain English
+- Semantic candidate search over CV text
+- Roles: Admin, Recruiter, Hiring Manager, Candidate
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech
+React, Vite, Tailwind CSS, React Query, React Hook Form + Zod, Zustand, deployed on Vercel.
 
-## Expanding the ESLint configuration
+## Run locally
+```bash
+npm install
+cp .env.example .env   # set VITE_API_URL and VITE_USE_MOCK
+npm run dev
+```
+`VITE_USE_MOCK=true` runs with fake data and no backend.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Screenshots
+![Dashboard](<docs/Screenshot (260).png>)
+![Pipeline](<docs/Screenshot (261).png>)
+![Ai Analyze](<docs/Screenshot (262).png>)
+![Ai Assistant](<docs/Screenshot (263).png>)
