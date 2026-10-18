@@ -16,3 +16,8 @@ createRoot(document.getElementById("root")).render(
     </QueryClientProvider>
   </StrictMode>
 );
+
+// Wake the free backend early so the first login is not slow.
+if (import.meta.env.VITE_USE_MOCK === "false") {
+  fetch(`${import.meta.env.VITE_API_URL}/public/jobs`).catch(() => {});
+}

@@ -8,6 +8,7 @@ import Input from "@/components/ui/Input";
 import PasswordInput from "@/components/ui/PasswordInput";
 import Checkbox from "@/components/ui/Checkbox";
 import GoogleSection from "@/features/auth/GoogleSection";
+import DemoAccounts, { DEMO_PASSWORD } from "@/features/auth/DemoAccounts";
 import { loginPanel } from "@/features/auth/panels";
 import { loginSchema } from "@/features/auth/authSchemas";
 import { USE_MOCK, login } from "@/api/auth.api";
@@ -19,6 +20,7 @@ export default function Login() {
   const location = useLocation();
   const setSession = useAuthStore((s) => s.setSession);
   const [serverError, setServerError] = useState("");
+  const [waking, setWaking] = useState(false);
   const {
     register,
     handleSubmit,
@@ -29,8 +31,10 @@ export default function Login() {
     mode: "onTouched",
   });
 
-  const onSubmit = async (data) => {
+    const signIn = async (data) => {
     setServerError("");
+    // The free server sleeps when unused: after a few seconds, tell the visitor why it is slow.
+    const timer = setTimeout(() => setWaking(true), 4000);
     try {
       const session = await login(data);
       setSession(session);
@@ -38,7 +42,17 @@ export default function Login() {
       navigate(location.state?.from?.pathname || homeFor(session.user.role), { replace: true });
     } catch (err) {
       setServerError(err.message);
+    } finally {
+      clearTimeout(timer);
+      setWaking(false);
     }
+  };
+  const onSubmit = (data) => signIn(data);
+  const [demoBusy, setDemoBusy] = useState(false);
+  const onDemo = async (email) => {
+    setDemoBusy(true);
+    await signIn({ email, password: DEMO_PASSWORD, remember: true });
+    setDemoBusy(false);
   };
 
   return (
@@ -68,6 +82,11 @@ export default function Login() {
         <Button type="submit" size="lg" fullWidth loading={isSubmitting}>
           Sign in
         </Button>
+        {waking && (
+          <p role="status" className="rounded-lg bg-amber-50 p-3 text-sm text-amber-800">
+            The server is waking up (free hosting). This can take up to a minute the first time, please wait.
+          </p>
+        )}
         {serverError && (
           <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">
             {serverError}
@@ -75,6 +94,7 @@ export default function Login() {
         )}
       </form>
 
+      <DemoAccounts onPick={onDemo} disabled={demoBusy || isSubmitting} />
       {USE_MOCK && (
         <div className="mt-6 rounded-lg border border-dashed border-slate-300 bg-surface-container-low p-4 text-xs text-slate-600">
           <p className="font-semibold text-on-surface">Demo mode (no backend yet)</p>
