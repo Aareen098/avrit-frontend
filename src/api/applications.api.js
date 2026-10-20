@@ -63,3 +63,31 @@ export async function getMyApplications(email) {
   }
   return (await api.get("/me/applications")).data;
 }
+
+// Real API: GET /me/applications/{reference} ->
+//   { reference, jobId, jobTitle, company, location, jobType, description, skills, status, appliedAt, coverNote, resumeName }
+export async function getMyApplication(reference, email) {
+  if (USE_MOCK) {
+    const app = (await getMyApplications(email)).find((a) => a.reference === reference);
+    if (!app) throw new Error("Application not found");
+    return { company: "Acme Technologies", location: "Remote", jobType: "Full-time", description: "Sample job shown in demo mode.", skills: [], coverNote: "", resumeName: "resume.pdf", ...app };
+  }
+  return (await api.get(`/me/applications/${encodeURIComponent(reference)}`)).data;
+}
+
+// Real API: GET /me/interviews -> [{ id, reference, jobTitle, company, date, time, type, interviewer }]
+export async function getMyInterviews() {
+  if (USE_MOCK) {
+    await wait(300);
+    const date = new Date(Date.now() + 3 * 864e5).toLocaleDateString("en-CA");
+    return [{ id: 1, reference: "HF-SAMPLE1", jobTitle: "Senior Frontend Engineer", company: "Acme Technologies", date, time: "11:00", type: "Video call", interviewer: "Anita Rao" }];
+  }
+  return (await api.get("/me/interviews")).data;
+}
+
+// Real API: POST /me/applications { jobId, coverNote } -> { reference }
+// Uses the name, phone and the ONE resume saved on the candidate's profile.
+export async function applyWithProfile({ job, email, coverNote }) {
+  if (USE_MOCK) return submitApplication({ job, name: "", email, phone: "", coverNote, resume: null });
+  return (await api.post("/me/applications", { jobId: job.id, coverNote: coverNote || "" })).data;
+}

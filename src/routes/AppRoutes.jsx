@@ -9,9 +9,11 @@ import CompanyRegister from "@/pages/auth/CompanyRegister";
 import VerifyEmail from "@/pages/auth/VerifyEmail";
 import ForgotPassword from "@/pages/auth/ForgotPassword";
 import ResetPassword from "@/pages/auth/ResetPassword";
-import Dashboard from "@/pages/staff/Dashboard";
+import StaffDashboard from "@/pages/staff/Dashboard";
 import Candidates from "@/pages/staff/Candidates";
 import CandidateProfile from "@/pages/staff/CandidateProfile";
+import CandidateDashboard from "@/pages/candidate/Dashboard";
+import ApplicationDetail from "@/pages/candidate/ApplicationDetail";
 import PublicLayout from "@/layouts/PublicLayout";
 import Careers from "@/pages/public/Careers";
 import JobDetail from "@/pages/public/JobDetail";
@@ -64,7 +66,7 @@ export default function AppRoutes() {
       {/* Staff: Admin, Recruiter, Hiring Manager */}
       <Route element={<ProtectedRoute roles={STAFF_ROLES} />}>
         <Route element={<StaffLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<StaffDashboard />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/candidates" element={<Candidates />} />
           <Route path="/candidates/:id" element={<CandidateProfile />} />
@@ -85,7 +87,9 @@ export default function AppRoutes() {
       {/* Candidates */}
       <Route element={<ProtectedRoute roles={[ROLES.CANDIDATE]} />}>
         <Route element={<CandidateLayout />}>
-          <Route path="/portal" element={<MyApplications />} />
+          <Route path="/portal" element={<CandidateDashboard />} />
+          <Route path="/portal/applications" element={<MyApplications />} />
+          <Route path="/portal/applications/:reference" element={<ApplicationDetail />} />
           <Route path="/portal/profile" element={<CandidateProfilePage />} />
         </Route>
       </Route>

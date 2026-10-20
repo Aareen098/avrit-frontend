@@ -16,6 +16,8 @@ export const STAFF_NAV = [
 
 // Top menu for candidates.
 export const CANDIDATE_NAV = [
-  { to: "/portal", label: "My Applications", end: true },
+  { to: "/portal", label: "Dashboard", end: true },
+  { to: "/portal/applications", label: "Applications" },
+  { to: "/careers", label: "Browse jobs" },
   { to: "/portal/profile", label: "Profile" },
 ];

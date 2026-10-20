@@ -8,6 +8,7 @@ export const useAuthStore = create()(
       token: null,
       user: null,
       setSession: ({ token, user }) => set({ token, user }),
+      updateUser: (patch) => set((s) => ({ user: { ...s.user, ...patch } })),
       logout: () => set({ token: null, user: null }),
     }),
     { name: "hireflow-auth" }
