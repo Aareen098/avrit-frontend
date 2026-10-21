@@ -27,6 +27,11 @@ npm run dev
 ```
 `VITE_USE_MOCK=true` runs with fake data and no backend.
 
+#Authors
+```
+Simran Kaur, Aareen Anand
+
+
 ## Screenshots
 ![Dashboard](<docs/Screenshot (260).png>)
 ![Pipeline](<docs/Screenshot (261).png>)
