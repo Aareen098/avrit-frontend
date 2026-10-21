@@ -31,7 +31,7 @@ npm run dev
 ```
 Simran Kaur, Aareen Anand
 
-
+```
 ## Screenshots
 ![Dashboard](<docs/Screenshot (260).png>)
 ![Pipeline](<docs/Screenshot (261).png>)
