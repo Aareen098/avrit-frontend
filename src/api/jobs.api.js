@@ -3,7 +3,7 @@ import { USE_MOCK, getMockCompanies } from "@/api/auth.api";
 import { useAuthStore } from "@/store/authStore";
 
 // ---- Mock data (kept in the browser) until the Spring Boot API exists ----
-const KEY = "hireflow-mock-jobs";
+const KEY = "avrit-mock-jobs";
 const SEED = [
   { id: 1, title: "Senior Frontend Engineer", department: "Engineering", location: "Remote", type: "Full-time", status: "OPEN", skills: ["React", "TypeScript", "Tailwind"], description: "Build fast, accessible interfaces for our hiring platform. You will own features end to end, work closely with design, and mentor junior engineers.", applicants: 42, createdAt: "2026-09-28" },
   { id: 2, title: "Product Designer", department: "Design", location: "Bengaluru", type: "Full-time", status: "OPEN", skills: ["Figma", "Prototyping", "Research"], description: "Design clear, calm product experiences. You will run user research, build prototypes and ship alongside engineering.", applicants: 18, createdAt: "2026-09-30" },

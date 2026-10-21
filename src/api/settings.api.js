@@ -2,12 +2,12 @@ import api from "@/api/axios";
 import { USE_MOCK } from "@/api/auth.api";
 
 // ---- Mock settings, kept in the browser ----
-const KEY = "hireflow-mock-settings";
+const KEY = "avrit-mock-settings";
 const DEFAULTS = {
   company: { name: "Acme Technologies", website: "https://acme.example.com", contactEmail: "careers@acme.example.com" },
   ai: { shortlistThreshold: 80, showExplanation: true },
   team: [
-    { id: 1, name: "Admin User", email: "admin@hireflow.com", role: "ADMIN" },
+    { id: 1, name: "Admin User", email: "admin@avrit.com", role: "ADMIN" },
     { id: 2, name: "Riya Kapoor", email: "riya@acme.example.com", role: "RECRUITER" },
     { id: 3, name: "Arjun Rao", email: "arjun@acme.example.com", role: "HIRING_MANAGER" },
   ],

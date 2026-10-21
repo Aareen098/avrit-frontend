@@ -11,6 +11,6 @@ export const useAuthStore = create()(
       updateUser: (patch) => set((s) => ({ user: { ...s.user, ...patch } })),
       logout: () => set({ token: null, user: null }),
     }),
-    { name: "hireflow-auth" }
+    { name: "avrit-auth" }
   )
 );

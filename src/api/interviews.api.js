@@ -3,7 +3,7 @@ import { USE_MOCK } from "@/api/auth.api";
 import { updateCandidateStage } from "@/api/candidates.api";
 
 // ---- Mock interviews, kept in the browser ----
-const KEY = "hireflow-mock-interviews";
+const KEY = "avrit-mock-interviews";
 const dayFromToday = (n) => {
   const d = new Date();
   d.setDate(d.getDate() + n);

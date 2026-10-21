@@ -1,9 +1,9 @@
-# HireFlow: AI-powered hiring platform (frontend)
+# Avrit: AI-powered hiring platform (frontend)
 
 Multi-company applicant tracking system with AI CV screening and a recruiter chat assistant.
 
-**Live demo:** https://hireflow-frontend-theta.vercel.app/ (use the one-click demo buttons on the login page)
-**Backend repo:** https://github.com/Aareen098/hireflow-backend
+**Live demo:** https://www.avrit.co.in/ (use the one-click demo buttons on the login page)
+**Backend repo:** https://github.com/Aareen098/avrit-backend
 
 > The backend runs on a free plan and sleeps when unused. The first request can take up to a minute.
 
@@ -32,3 +32,8 @@ npm run dev
 ![Pipeline](<docs/Screenshot (261).png>)
 ![Ai Analyze](<docs/Screenshot (262).png>)
 ![Ai Assistant](<docs/Screenshot (263).png>)
+
+```
+`Contributors
+
+Simran Kaur, Aareen Anand

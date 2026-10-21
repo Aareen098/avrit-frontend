@@ -2,7 +2,7 @@ import api from "@/api/axios";
 import { USE_MOCK } from "@/api/auth.api";
 
 // ---- Mock storage until the Spring Boot API exists ----
-const KEY = "hireflow-mock-applications";
+const KEY = "avrit-mock-applications";
 const DEMO = { reference: "HF-DEMO01", email: "demo@example.com", jobTitle: "Senior Frontend Engineer", status: "INTERVIEW", appliedAt: "2026-10-01" };
 const wait = (ms = 600) => new Promise((r) => setTimeout(r, ms));
 const read = () => {

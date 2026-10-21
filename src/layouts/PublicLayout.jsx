@@ -21,7 +21,7 @@ export default function PublicLayout() {
         <Outlet />
       </main>
       <footer className="border-t border-slate-200 py-6 text-center text-sm text-slate-500">
-        © {new Date().getFullYear()} HireFlow
+        © {new Date().getFullYear()} Avrit
       </footer>
     </div>
   );

@@ -3,10 +3,10 @@ import { USE_MOCK } from "@/api/auth.api";
 // One-click logins for visitors. These accounts belong to the sample company "Acme".
 export const DEMO_PASSWORD = "password123";
 const ACCOUNTS = [
-  { label: "Admin", email: "admin@hireflow.com" },
-  { label: "Recruiter", email: "recruiter@hireflow.com" },
-  { label: "Hiring manager", email: "manager@hireflow.com" },
-  { label: "Candidate", email: "candidate@hireflow.com" },
+  { label: "Admin", email: "admin@avrit.com" },
+  { label: "Recruiter", email: "recruiter@avrit.com" },
+  { label: "Hiring manager", email: "manager@avrit.com" },
+  { label: "Candidate", email: "candidate@avrit.com" },
 ];
 
 export default function DemoAccounts({ onPick, disabled }) {

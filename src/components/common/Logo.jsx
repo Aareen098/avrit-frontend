@@ -13,10 +13,10 @@ export default function Logo({ tag, size = "md", className = "" }) {
           box
         )}
       >
-        H
+        A
       </div>
       <span className={cn("font-semibold tracking-tight text-on-surface", text)}>
-        HireFlow
+        Avrit
       </span>
       {tag && (
         <span className="rounded bg-surface-container px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">

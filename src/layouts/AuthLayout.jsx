@@ -18,7 +18,7 @@ export default function AuthLayout({ panel, tag, children }) {
         </div>
 
         <p className="text-center text-xs text-slate-400">
-          © {YEAR} HireFlow
+          © {YEAR} Avrit
         </p>
       </div>
 

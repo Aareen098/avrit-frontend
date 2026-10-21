@@ -15,7 +15,7 @@ const CANDIDATES = [
 const wait = (ms = 400) => new Promise((r) => setTimeout(r, ms));
 
 // Stage changes made in the pipeline are remembered in the browser (mock only).
-const KEY = "hireflow-mock-stages";
+const KEY = "avrit-mock-stages";
 const readStages = () => {
   try {
     return JSON.parse(localStorage.getItem(KEY)) || {};
@@ -48,8 +48,8 @@ function withMatch(c) {
 }
 
 // More mock storage: rejection reasons and candidates added by hand.
-const REASON_KEY = "hireflow-mock-reasons";
-const ADDED_KEY = "hireflow-mock-added-candidates";
+const REASON_KEY = "avrit-mock-reasons";
+const ADDED_KEY = "avrit-mock-added-candidates";
 const readObject = (key) => {
   try {
     return JSON.parse(localStorage.getItem(key)) || {};

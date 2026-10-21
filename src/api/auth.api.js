@@ -11,8 +11,8 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // The demo accounts below all belong to this company. Companies created on the sign-up page
 // are saved next to it, so you can try the whole flow without a backend.
 const DEMO_COMPANY = { id: 1, name: "Acme Technologies", slug: "acme" };
-const COMPANIES_KEY = "hireflow-mock-companies";
-const USERS_KEY = "hireflow-mock-users";
+const COMPANIES_KEY = "avrit-mock-companies";
+const USERS_KEY = "avrit-mock-users";
 
 const readList = (key) => {
   try {

@@ -106,7 +106,7 @@ export default function Apply() {
             {...register("coverNote")}
           />
         </div>
-        <Checkbox label="I agree to HireFlow storing my details to process this application." {...register("consent")} error={errors.consent?.message} />
+        <Checkbox label="I agree to Avrit storing my details to process this application." {...register("consent")} error={errors.consent?.message} />
 
         {serverError && <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{serverError}</p>}
         <Button type="submit" size="lg" fullWidth loading={mutation.isPending}>Submit application</Button>

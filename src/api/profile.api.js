@@ -4,7 +4,7 @@ import { USE_MOCK } from "@/api/auth.api";
 // Real API: GET /me/profile and PUT /me/profile (multipart; "resume" replaces the ONE resume on the profile)
 // Profile shape: { name, phone, location, headline, about, linkedin, github, portfolio, resumeName, completeness }
 const wait = (ms = 400) => new Promise((r) => setTimeout(r, ms));
-const keyFor = (email) => `hireflow-mock-profile-${String(email).toLowerCase()}`;
+const keyFor = (email) => `avrit-mock-profile-${String(email).toLowerCase()}`;
 const FIELDS = ["name", "phone", "location", "headline", "about", "linkedin", "github", "portfolio"];
 
 // Same rule as the server: 6 things to fill in.
