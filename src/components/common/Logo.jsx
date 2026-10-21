@@ -1,25 +1,26 @@
 import { cn } from "@/utils/cn";
+import logo from "@/assets/avritlogo.png";
 
-// Usage: <Logo />  or  <Logo tag="ATS" />  or  <Logo size="lg" />
 export default function Logo({ tag, size = "md", className = "" }) {
-  const box = size === "lg" ? "h-12 w-12 text-xl" : "h-9 w-9 text-base";
+  const box = size === "lg" ? "h-8 w-8" : "h-6 w-6";
   const text = size === "lg" ? "text-2xl" : "text-lg";
 
   return (
     <div className={cn("flex items-center gap-2.5", className)}>
-      <div
-        className={cn(
-          "flex items-center justify-center rounded-lg bg-primary-container font-semibold text-white shadow-card",
-          box
-        )}
+      <img
+        src={logo}
+        alt="Avrit logo"
+        className={cn("block object-contain rounded-sm shrink-0", box)}
+      />
+
+      <span
+        className={cn("font-semibold tracking-tight text-on-surface", text)}
       >
-        A
-      </div>
-      <span className={cn("font-semibold tracking-tight text-on-surface", text)}>
         Avrit
       </span>
+
       {tag && (
-        <span className="rounded bg-surface-container px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
+        <span className="rounded-md bg-[#E8EDFF] px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#172D78]">
           {tag}
         </span>
       )}
