@@ -32,8 +32,3 @@ npm run dev
 ![Pipeline](<docs/Screenshot (261).png>)
 ![Ai Analyze](<docs/Screenshot (262).png>)
 ![Ai Assistant](<docs/Screenshot (263).png>)
-
-```
-`Contributors
-
-Simran Kaur, Aareen Anand
