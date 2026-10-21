@@ -30,7 +30,6 @@ npm run dev
 #Authors
 ```
 Simran Kaur, Aareen Anand
-
 ```
 ## Screenshots
 ![Dashboard](<docs/Screenshot (260).png>)
