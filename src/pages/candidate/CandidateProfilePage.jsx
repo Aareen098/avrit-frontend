@@ -8,6 +8,7 @@ import { useAuthStore } from "@/store/authStore";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/common/Icon";
+import ResumeReview from "@/features/candidate/ResumeReview";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Enter your full name"),
@@ -119,7 +120,7 @@ export default function CandidateProfilePage() {
           </div>
         </div>
       )}
-      {isLoading ? <p className="mt-6 text-slate-500">Loading...</p> : isError ? <p className="mt-6 text-red-600">Could not load your profile.</p> : <ProfileForm user={user} profile={data} />}
+      {isLoading ? <p className="mt-6 text-slate-500">Loading...</p> : isError ? <p className="mt-6 text-red-600">Could not load your profile.</p> : <><ProfileForm user={user} profile={data} /><ResumeReview key={data.resumeName} hasResume={Boolean(data.resumeName)} /></>}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { getProfile } from "@/api/profile.api";
 import { useAuthStore } from "@/store/authStore";
 import { ROLES } from "@/utils/constants";
 import Button from "@/components/ui/Button";
+import MatchCheck from "@/features/candidate/MatchCheck";
 
 // Logged-in candidates apply in one click with the details and resume saved on their profile.
 function ApplyBox({ job }) {
@@ -40,6 +41,7 @@ function ApplyBox({ job }) {
       <Button size="lg" loading={apply.isPending} onClick={() => apply.mutate()}>Apply with my profile</Button>
       <p className="mt-2 text-xs text-slate-500">Sends {profileQ.data.resumeName}. <Link to="/portal/profile" className="text-primary hover:underline">Change resume</Link></p>
       {message && <p role="alert" className="mt-3 rounded-lg bg-red-50 p-3 text-sm text-red-700">{message}</p>}
+      <MatchCheck jobId={job.id} />
     </div>
   );
 }
