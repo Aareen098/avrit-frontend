@@ -107,7 +107,10 @@ function TeamTab({ team }) {
           <Select label="Role" placeholder="Choose a role" options={roleOptions} {...register("role")} error={errors.role?.message} />
         </div>
         <div className="flex items-center justify-end gap-3">
-          <Saved show={mutation.isSuccess} />
+            {mutation.isError && (
+            <span role="alert" className="text-sm text-red-600">{mutation.error?.response?.data?.message || "Could not send the invite."}</span>
+          )}
+          {mutation.isSuccess && <span role="status" className="text-sm text-emerald-600">Invite sent</span>}
           <Button type="submit" loading={mutation.isPending}>Send invite</Button>
         </div>
       </form>

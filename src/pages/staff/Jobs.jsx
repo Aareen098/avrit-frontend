@@ -5,6 +5,7 @@ import { getJobs } from "@/api/jobs.api";
 import { useAuthStore } from "@/store/authStore";
 import { ROLES } from "@/utils/constants";
 import Button from "@/components/ui/Button";
+import JobStatusButton from "@/features/jobs/JobStatusButton";
 import Icon from "@/components/common/Icon";
 import { cn } from "@/utils/cn";
 
@@ -85,7 +86,7 @@ export default function Jobs() {
             {shown.map((j) => (
               <li key={j.id} className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 hover:bg-slate-50 sm:px-6">
                 <div className="min-w-0">
-                  <p className="truncate font-semibold">{j.title}</p>
+                  <Link to={`/jobs/${j.id}`} className="block truncate font-semibold hover:text-primary hover:underline">{j.title}</Link>
                   <p className="mt-0.5 text-sm text-slate-500">
                     {j.department} · {j.location} · {j.type}
                   </p>
@@ -94,6 +95,7 @@ export default function Jobs() {
                   <span className="flex items-center gap-1 text-slate-500">
                     <Icon name="group" className="text-lg" /> {j.applicants}
                   </span>
+                  {canCreate && <JobStatusButton job={j} />}
                   <span className={cn("rounded-full border px-2.5 py-0.5 text-xs font-semibold", STATUS[j.status]?.cls)}>
                     {STATUS[j.status]?.label ?? j.status}
                   </span>

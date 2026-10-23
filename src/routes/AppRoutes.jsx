@@ -12,6 +12,8 @@ import ResetPassword from "@/pages/auth/ResetPassword";
 import StaffDashboard from "@/pages/staff/Dashboard";
 import Candidates from "@/pages/staff/Candidates";
 import CandidateProfile from "@/pages/staff/CandidateProfile";
+import JobApplicants from "@/pages/staff/JobApplicants";
+import EditJob from "@/pages/staff/EditJob";
 import CandidateDashboard from "@/pages/candidate/Dashboard";
 import ApplicationDetail from "@/pages/candidate/ApplicationDetail";
 import PublicLayout from "@/layouts/PublicLayout";
@@ -31,12 +33,13 @@ import CreateJob from "@/pages/staff/CreateJob";
 import { useAuthStore } from "@/store/authStore";
 import { ROLES, STAFF_ROLES, homeFor } from "@/utils/constants";
 
-
 // "/" sends you to your home page, or to login.
 function HomeRedirect() {
   const user = useAuthStore((s) => s.user);
   const token = useAuthStore((s) => s.token);
-  return <Navigate to={token && user ? homeFor(user.role) : "/login"} replace />;
+  return (
+    <Navigate to={token && user ? homeFor(user.role) : "/login"} replace />
+  );
 }
 
 export default function AppRoutes() {
@@ -68,12 +71,18 @@ export default function AppRoutes() {
         <Route element={<StaffLayout />}>
           <Route path="/dashboard" element={<StaffDashboard />} />
           <Route path="/jobs" element={<Jobs />} />
+          <Route path="/jobs" element={<Jobs />} />
+          <Route path="/jobs/:id" element={<JobApplicants />} />
+          <Route path="/candidates" element={<Candidates />} />
           <Route path="/candidates" element={<Candidates />} />
           <Route path="/candidates/:id" element={<CandidateProfile />} />
           <Route path="/interviews" element={<Interviews />} />
 
-          <Route element={<ProtectedRoute roles={[ROLES.ADMIN, ROLES.RECRUITER]} />}>
+          <Route
+            element={<ProtectedRoute roles={[ROLES.ADMIN, ROLES.RECRUITER]} />}
+          >
             <Route path="/jobs/new" element={<CreateJob />} />
+            <Route path="/jobs/:id/edit" element={<EditJob />} />
             <Route path="/pipeline" element={<Pipeline />} />
             <Route path="/assistant" element={<AIAssistant />} />
           </Route>
@@ -89,7 +98,10 @@ export default function AppRoutes() {
         <Route element={<CandidateLayout />}>
           <Route path="/portal" element={<CandidateDashboard />} />
           <Route path="/portal/applications" element={<MyApplications />} />
-          <Route path="/portal/applications/:reference" element={<ApplicationDetail />} />
+          <Route
+            path="/portal/applications/:reference"
+            element={<ApplicationDetail />}
+          />
           <Route path="/portal/profile" element={<CandidateProfilePage />} />
         </Route>
       </Route>

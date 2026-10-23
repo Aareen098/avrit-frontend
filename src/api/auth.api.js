@@ -171,3 +171,30 @@ export async function registerCompany(form) {
     throw new Error(errorMessage(err, "Could not create the workspace"), { cause: err });
   }
 }
+
+// Real API: POST /auth/forgot-password { email } -> 204 always (never reveals whether the email has an account)
+export async function forgotPassword(email) {
+  if (USE_MOCK) {
+    await wait(600);
+    return;
+  }
+  try {
+    await api.post("/auth/forgot-password", { email: email.trim() });
+  } catch (err) {
+    throw new Error(errorMessage(err, "Could not send the email. Please try again."), { cause: err });
+  }
+}
+
+// Real API: POST /auth/reset-password { token, password } -> 204, or 400 "invalid or expired".
+// Also used by invited teammates to set their first password.
+export async function resetPassword({ token, password }) {
+  if (USE_MOCK) {
+    await wait(600);
+    return;
+  }
+  try {
+    await api.post("/auth/reset-password", { token, password });
+  } catch (err) {
+    throw new Error(errorMessage(err, "Could not set the password. Please try again."), { cause: err });
+  }
+}

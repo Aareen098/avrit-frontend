@@ -7,9 +7,11 @@ import Icon from "@/components/common/Icon";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { forgotSchema } from "@/features/auth/authSchemas";
+import { forgotPassword } from "@/api/auth.api";
 
 export default function ForgotPassword() {
   const [sentTo, setSentTo] = useState("");
+    const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
@@ -17,9 +19,13 @@ export default function ForgotPassword() {
   } = useForm({ resolver: zodResolver(forgotSchema), mode: "onTouched" });
 
   const onSubmit = async ({ email }) => {
-    // TODO: POST /auth/forgot-password
-    await new Promise((r) => setTimeout(r, 600));
-    setSentTo(email);
+    setError("");
+    try {
+      await forgotPassword(email);
+      setSentTo(email);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
@@ -41,6 +47,7 @@ export default function ForgotPassword() {
       {!sentTo && (
         <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4" noValidate>
           <Input label="Email" icon="mail" type="email" placeholder="you@company.com" {...register("email")} error={errors.email?.message} />
+          {error && <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
           <Button type="submit" size="lg" fullWidth loading={isSubmitting}>
             Send reset link
           </Button>

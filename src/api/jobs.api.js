@@ -48,6 +48,28 @@ export async function createJob(data) {
   return (await api.post("/jobs", data)).data;
 }
 
+// Real API: PUT /jobs/:id {title,department,location,type,description,skills}  (status is not changed here)
+export async function updateJob(id, data) {
+  if (USE_MOCK) {
+    await wait();
+    const jobs = read().map((j) => (j.id === id ? { ...j, ...data } : j));
+    localStorage.setItem(KEY, JSON.stringify(jobs));
+    return jobs.find((j) => j.id === id);
+  }
+  return (await api.put(`/jobs/${id}`, data)).data;
+}
+
+// Real API: PATCH /jobs/:id/status { status }  (OPEN | DRAFT | CLOSED)
+export async function updateJobStatus(id, status) {
+  if (USE_MOCK) {
+    await wait();
+    const jobs = read().map((j) => (j.id === id ? { ...j, status } : j));
+    localStorage.setItem(KEY, JSON.stringify(jobs));
+    return jobs.find((j) => j.id === id);
+  }
+  return (await api.patch(`/jobs/${id}/status`, { status })).data;
+}
+
 // Public (candidate-facing) versions. Real API: GET /public/jobs and GET /public/jobs/:id
 export async function getPublicJobs() {
   if (USE_MOCK) {
