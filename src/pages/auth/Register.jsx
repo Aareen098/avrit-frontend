@@ -11,7 +11,7 @@ import GoogleSection from "@/features/auth/GoogleSection";
 import PasswordStrength from "@/features/auth/PasswordStrength";
 import { candidatePanel } from "@/features/auth/panels";
 import { registerSchema } from "@/features/auth/authSchemas";
-import { registerCandidate } from "@/api/auth.api";
+import { googleLogin, registerCandidate } from "@/api/auth.api";
 import { useAuthStore } from "@/store/authStore";
 import { homeFor } from "@/utils/constants";
 
@@ -43,6 +43,17 @@ export default function Register() {
     }
   };
 
+  const onGoogle = async (credential) => {
+    setServerError("");
+    try {
+      const session = await googleLogin(credential);
+      setSession(session);
+      navigate(homeFor(session.user.role), { replace: true });
+    } catch (err) {
+      setServerError(err.message);
+    }
+  };
+
   return (
     <AuthLayout panel={candidatePanel}>
       <h1 className="text-3xl font-semibold tracking-tight">Create your account</h1>
@@ -50,7 +61,7 @@ export default function Register() {
         Apply to jobs and follow your application in one place.
       </p>
 
-      <GoogleSection dividerText="or sign up with email" />
+      <GoogleSection dividerText="or sign up with email" onCredential={onGoogle} />
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
         <Input label="Full name" icon="person" placeholder="Your full name" {...register("fullName")} error={errors.fullName?.message} />

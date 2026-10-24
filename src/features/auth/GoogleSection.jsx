@@ -1,10 +1,82 @@
-// UI only for now. Google sign-in needs backend OAuth setup (added later).
-export default function GoogleSection({ dividerText = "or continue with email" }) {
+import { useEffect, useRef, useState } from "react";
+import { USE_MOCK } from "@/api/auth.api";
+
+const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const SCRIPT = "https://accounts.google.com/gsi/client";
+const GOOGLE_MAX_WIDTH = 400; // Google's own button cannot be wider than this
+const GOOGLE_HEIGHT = 40; // height of Google's "large" button
+const OUR_HEIGHT = 44; // our button is h-11
+
+// Google's script is loaded once, and initialised once. The newest page handler is kept here.
+let scriptPromise = null;
+let initialised = false;
+let handler = () => {};
+
+function loadGoogle() {
+  scriptPromise ??= new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = SCRIPT;
+    s.async = true;
+    s.onload = () => resolve(window.google);
+    s.onerror = () => {
+      scriptPromise = null;
+      reject(new Error("Could not load Google sign-in"));
+    };
+    document.head.appendChild(s);
+  });
+  return scriptPromise;
+}
+
+// "Continue with Google". onCredential(credential) gets Google's signed ID token; the page sends it to the server.
+// What you SEE is our own rounded full-width button. Google's real (invisible) button sits on top of it and is
+// stretched to the same size, so a click goes to Google's sign-in. Nothing shows until VITE_GOOGLE_CLIENT_ID is set
+// (and never in demo mode), so the page works without it.
+export default function GoogleSection({ onCredential, dividerText = "or continue with email" }) {
+  const wrap = useRef(null);
+  const box = useRef(null);
+  const [width, setWidth] = useState(0);
+  const enabled = Boolean(CLIENT_ID) && !USE_MOCK;
+
+  useEffect(() => {
+    handler = onCredential;
+  }, [onCredential]);
+
+  // Keep the invisible button the same size as ours, also when the window is resized.
+  useEffect(() => {
+    if (!enabled || !wrap.current) return undefined;
+    const watcher = new ResizeObserver(() => setWidth(Math.round(wrap.current.offsetWidth)));
+    watcher.observe(wrap.current);
+    return () => watcher.disconnect();
+  }, [enabled]);
+
+  const googleWidth = Math.min(GOOGLE_MAX_WIDTH, Math.max(200, width));
+
+  useEffect(() => {
+    if (!enabled || !width) return undefined;
+    let cancelled = false;
+    loadGoogle()
+      .then((google) => {
+        if (cancelled || !box.current) return;
+        if (!initialised) {
+          google.accounts.id.initialize({ client_id: CLIENT_ID, callback: (r) => handler(r.credential) });
+          initialised = true;
+        }
+        box.current.innerHTML = "";
+        google.accounts.id.renderButton(box.current, { theme: "outline", size: "large", text: "continue_with", width: googleWidth });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [enabled, width, googleWidth]);
+
+  if (!enabled) return null;
+
   return (
     <>
-      <button
-        type="button"
-        className="flex h-11 w-full items-center justify-center gap-2.5 rounded-lg border border-slate-200 bg-white text-sm font-medium text-on-surface transition-colors hover:bg-slate-50"
+      <div
+        ref={wrap}
+        className="relative flex h-11 w-full items-center justify-center gap-2.5 overflow-hidden rounded-lg border border-slate-200 bg-white text-sm font-medium text-on-surface transition-colors hover:bg-slate-50"
       >
         <svg viewBox="0 0 48 48" className="h-5 w-5" aria-hidden="true">
           <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
@@ -13,13 +85,23 @@ export default function GoogleSection({ dividerText = "or continue with email" }
           <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
         </svg>
         Continue with Google
-      </button>
+        <div
+          ref={box}
+          aria-label="Continue with Google"
+          className="absolute left-0 top-0"
+          style={{
+            width: googleWidth,
+            height: GOOGLE_HEIGHT,
+            opacity: 0.01,
+            transformOrigin: "top left",
+            transform: `scale(${width ? width / googleWidth : 1}, ${OUR_HEIGHT / GOOGLE_HEIGHT})`,
+          }}
+        />
+      </div>
 
       <div className="my-6 flex items-center gap-3">
         <div className="h-px flex-1 bg-slate-200" />
-        <span className="text-xs font-medium uppercase tracking-wide text-slate-400">
-          {dividerText}
-        </span>
+        <span className="text-xs font-medium uppercase tracking-wide text-slate-400">{dividerText}</span>
         <div className="h-px flex-1 bg-slate-200" />
       </div>
     </>

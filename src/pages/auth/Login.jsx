@@ -11,7 +11,7 @@ import GoogleSection from "@/features/auth/GoogleSection";
 import DemoAccounts, { DEMO_PASSWORD } from "@/features/auth/DemoAccounts";
 import { loginPanel } from "@/features/auth/panels";
 import { loginSchema } from "@/features/auth/authSchemas";
-import { USE_MOCK, login } from "@/api/auth.api";
+import { USE_MOCK, googleLogin, login } from "@/api/auth.api";
 import { useAuthStore } from "@/store/authStore";
 import { homeFor } from "@/utils/constants";
 
@@ -55,6 +55,17 @@ export default function Login() {
     setDemoBusy(false);
   };
 
+  const onGoogle = async (credential) => {
+    setServerError("");
+    try {
+      const session = await googleLogin(credential);
+      setSession(session);
+      navigate(location.state?.from?.pathname || homeFor(session.user.role), { replace: true });
+    } catch (err) {
+      setServerError(err.message);
+    }
+  };
+
   return (
     <AuthLayout panel={loginPanel} tag="ATS">
       <h1 className="text-3xl font-semibold tracking-tight">Welcome back</h1>
@@ -62,7 +73,7 @@ export default function Login() {
         Sign in to see your jobs, candidates and interviews.
       </p>
 
-      <GoogleSection />
+      <GoogleSection onCredential={onGoogle} />
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
         <Input label="Email" icon="mail" type="email" placeholder="you@company.com" {...register("email")} error={errors.email?.message} />

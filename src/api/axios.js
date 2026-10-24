@@ -14,8 +14,8 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const isLoginCall = error.config?.url?.includes("/auth/login");
-    if (error.response?.status === 401 && !isLoginCall) {
+    const isAuthCall = error.config?.url?.includes("/auth/");
+    if (error.response?.status === 401 && !isAuthCall) {
       useAuthStore.getState().logout();
       window.location.assign("/login");
     }

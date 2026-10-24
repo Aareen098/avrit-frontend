@@ -198,3 +198,14 @@ export async function resetPassword({ token, password }) {
     throw new Error(errorMessage(err, "Could not set the password. Please try again."), { cause: err });
   }
 }
+
+// Real API: POST /auth/google { credential } -> { token, user } (same as login).
+// credential is the ID token from Google's button. New emails become candidate accounts.
+export async function googleLogin(credential) {
+  try {
+    const { data } = await api.post("/auth/google", { credential });
+    return toSession(data);
+  } catch (err) {
+    throw new Error(errorMessage(err, "Google sign-in failed. Please try again."), { cause: err });
+  }
+}
