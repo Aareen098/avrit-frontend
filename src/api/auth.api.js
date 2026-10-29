@@ -209,3 +209,25 @@ export async function googleLogin(credential) {
     throw new Error(errorMessage(err, "Google sign-in failed. Please try again."), { cause: err });
   }
 }
+
+// Real API: POST /auth/verify-email { token } -> 204, or 400 "invalid or expired"
+export async function verifyEmail(token) {
+  try {
+    await api.post("/auth/verify-email", { token });
+  } catch (err) {
+    throw new Error(errorMessage(err, "Could not verify the email. Please try again."), { cause: err });
+  }
+}
+
+// Real API: POST /auth/resend-verification { email } -> 204 always
+export async function resendVerification(email) {
+  if (USE_MOCK) {
+    await wait(400);
+    return;
+  }
+  try {
+    await api.post("/auth/resend-verification", { email: email.trim() });
+  } catch (err) {
+    throw new Error(errorMessage(err, "Could not send the email. Please try again."), { cause: err });
+  }
+}

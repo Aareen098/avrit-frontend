@@ -1,6 +1,7 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Logo from "@/components/common/Logo";
 import UserMenu from "@/components/common/UserMenu";
+import VerifyBanner from "@/features/auth/VerifyBanner";
 import { CANDIDATE_NAV } from "@/utils/navigation";
 import { cn } from "@/utils/cn";
 
@@ -39,6 +40,8 @@ export default function CandidateLayout() {
           <UserMenu />
         </div>
       </header>
+
+      <VerifyBanner />
 
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <Outlet />
