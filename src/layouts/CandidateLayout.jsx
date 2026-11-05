@@ -2,6 +2,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import Logo from "@/components/common/Logo";
 import UserMenu from "@/components/common/UserMenu";
 import VerifyBanner from "@/features/auth/VerifyBanner";
+import NotificationBell from "@/features/notifications/NotificationBell";
 import { CANDIDATE_NAV } from "@/utils/navigation";
 import { cn } from "@/utils/cn";
 
@@ -37,7 +38,10 @@ export default function CandidateLayout() {
             ))}
           </nav>
 
-          <UserMenu />
+          <div className="flex items-center gap-1">
+            <NotificationBell />
+            <UserMenu />
+          </div>
         </div>
       </header>
 

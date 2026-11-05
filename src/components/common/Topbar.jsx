@@ -1,5 +1,6 @@
 import Icon from "@/components/common/Icon";
 import UserMenu from "@/components/common/UserMenu";
+import NotificationBell from "@/features/notifications/NotificationBell";
 
 export default function Topbar({ onMenu }) {
   return (
@@ -25,12 +26,7 @@ export default function Topbar({ onMenu }) {
       </div>
 
       <div className="ml-auto flex items-center gap-1">
-        <button
-          aria-label="Notifications"
-          className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"
-        >
-          <Icon name="notifications" />
-        </button>
+        <NotificationBell />
         <UserMenu />
       </div>
     </header>
