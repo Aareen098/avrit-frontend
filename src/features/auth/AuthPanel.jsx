@@ -8,7 +8,7 @@ export default function AuthPanel({ title, text, features = [] }) {
       <div className="pointer-events-none absolute -bottom-32 -left-16 h-96 w-96 rounded-full bg-violet-500/20 blur-3xl" />
 
       <div className="relative mx-auto w-full max-w-xl">
-        <h2 className="text-4xl font-semibold tracking-tight">{title}</h2>
+        <h2 className="text-3xl font-semibold tracking-tight">{title}</h2>
         <p className="mt-4 text-lg leading-relaxed text-indigo-100">{text}</p>
 
         <div className="mt-10 space-y-3">

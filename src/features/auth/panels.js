@@ -1,11 +1,11 @@
 // Text shown on the indigo side panel of each auth page.
 export const loginPanel = {
-  title: "Hire smarter with AI.",
-  text: "Screen resumes in minutes, rank candidates by fit, and keep every hiring stage in one place.",
+  title: "Where profession meets opportunity.",
+  text: "Avrit joins Avsar (opportunity) with Vritti (profession). Our AI reads every resume, ranks every candidate and explains each score.",
   features: [
-    { icon: "psychology", title: "Smart resume screening", text: "Skills and experience are read from every resume automatically." },
-    { icon: "leaderboard", title: "Candidate ranking", text: "See who fits each role best, with a short reason for every score." },
-    { icon: "forum", title: "Ask your candidates", text: "Search your pipeline in plain English, like a conversation." },
+    { icon: "psychology", title: "AI resume screening", text: "AI reads every resume and pulls out skills and experience automatically." },
+    { icon: "leaderboard", title: "AI candidate ranking", text: "See who fits each role best, with a clear reason for every score." },
+    { icon: "visibility", title: "Transparent at every stage", text: "Candidates are told at each step and can check status any time." },
   ],
 };
 
@@ -20,11 +20,11 @@ export const candidatePanel = {
 };
 
 export const employerPanel = {
-  title: "Hire smarter with AI.",
-  text: "Set up your workspace in two minutes and start receiving ranked candidates.",
+  title: "Hire right. Create opportunity.",
+  text: "Set up your workspace in two minutes and let AI rank every candidate for you.",
   features: [
     { icon: "document_scanner", title: "AI resume screening", text: "Resumes are parsed and matched to your job requirements." },
-    { icon: "leaderboard", title: "Smart candidate ranking", text: "Every applicant gets a fit score with the reasons behind it." },
-    { icon: "event_available", title: "Easy interview scheduling", text: "Pick a time, invite the panel, and send the invite in one step." },
+    { icon: "leaderboard", title: "AI candidate ranking", text: "Every applicant gets a fit score with the reasons behind it." },
+    { icon: "visibility", title: "Transparent hiring", text: "Candidates see where they stand at every stage, which builds trust." },
   ],
 };

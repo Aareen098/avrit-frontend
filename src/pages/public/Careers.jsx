@@ -21,8 +21,12 @@ export default function Careers() {
   return (
     <div>
       <div className="text-center">
-        <h1 className="text-4xl font-semibold tracking-tight">{companyName ? `Join ${companyName}` : "Join our team"}</h1>
-        <p className="mt-2 text-slate-500">Find a role that fits you and apply in a few minutes.</p>
+        <h1 className="text-4xl font-semibold tracking-tight">{companyName ? `Join ${companyName}` : "Where profession meets opportunity"}</h1>
+        <p className="mt-2 text-slate-500">
+          {companyName
+            ? "Find a role that fits you and apply in a few minutes."
+            : "Avrit joins Avsar (opportunity) with Vritti (profession). Find the role that fits you and apply in a few minutes."}
+        </p>
         <div className="relative mx-auto mt-6 max-w-md">
           <Icon name="search" className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
