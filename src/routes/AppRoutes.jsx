@@ -30,6 +30,12 @@ import Interviews from "@/pages/staff/Interviews";
 import NotFound from "@/pages/public/NotFound";
 import Jobs from "@/pages/staff/Jobs";
 import CreateJob from "@/pages/staff/CreateJob";
+import PlatformLayout from "@/layouts/PlatformLayout";
+import PlatformOverview from "@/pages/platform/Overview";
+import PlatformCompanies from "@/pages/platform/Companies";
+import PlatformCompanyDetail from "@/pages/platform/CompanyDetail";
+import PlatformBilling from "@/pages/platform/Billing";
+import PlatformBroadcast from "@/pages/platform/Broadcast";
 import { useAuthStore } from "@/store/authStore";
 import { ROLES, STAFF_ROLES, homeFor } from "@/utils/constants";
 
@@ -105,6 +111,17 @@ export default function AppRoutes() {
           <Route path="/portal/profile" element={<CandidateProfilePage />} />
         </Route>
       </Route>
+
+      {/* Platform owner only */}
+        <Route element={<ProtectedRoute roles={[ROLES.PLATFORM_ADMIN]} />}>
+          <Route element={<PlatformLayout />}>
+            <Route path="/platform" element={<PlatformOverview />} />
+            <Route path="/platform/companies" element={<PlatformCompanies />} />
+            <Route path="/platform/companies/:id" element={<PlatformCompanyDetail />} />
+            <Route path="/platform/billing" element={<PlatformBilling />} />
+            <Route path="/platform/broadcast" element={<PlatformBroadcast />} />
+          </Route>
+        </Route>
 
       <Route path="*" element={<NotFound />} />
     </Routes>

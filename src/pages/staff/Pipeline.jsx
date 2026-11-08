@@ -98,6 +98,9 @@ export default function Pipeline() {
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["candidates"] });
       queryClient.invalidateQueries({ queryKey: ["candidate"] });
+      // the dashboard numbers and the company usage (emails) change too
+      queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["company-usage"] });
     },
   });
 

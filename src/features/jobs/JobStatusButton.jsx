@@ -11,7 +11,7 @@ export default function JobStatusButton({ job }) {
   const change = useMutation({
     mutationFn: (status) => updateJobStatus(job.id, status),
     onSuccess: () => {
-      for (const key of ["jobs", "candidates", "candidate"]) queryClient.invalidateQueries({ queryKey: [key] });
+      for (const key of ["jobs", "candidates", "candidate","dashboard", "company-usage"]) queryClient.invalidateQueries({ queryKey: [key] });
     },
   });
   const set = (status, ask) => {

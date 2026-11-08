@@ -27,7 +27,8 @@ export default function ScheduleInterviewDialog({ onClose }) {
   const mutation = useMutation({
     mutationFn: scheduleInterview,
     onSuccess: () => {
-      ["interviews", "candidates", "candidate"].forEach((k) => queryClient.invalidateQueries({ queryKey: [k] }));
+      // the dashboard numbers and the company usage (emails) change too
+      ["interviews", "candidates", "candidate", "dashboard", "company-usage"].forEach((k) => queryClient.invalidateQueries({ queryKey: [k] }));
       onClose();
     },
   });

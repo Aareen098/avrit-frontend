@@ -15,6 +15,11 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     const isAuthCall = error.config?.url?.includes("/auth/");
+    // A suspended company is signed out everywhere.
+    if (error.response?.status === 403 && String(error.response.data?.message).includes("suspended") && !isAuthCall) {
+      useAuthStore.getState().logout();
+      window.location.assign("/login");
+    }
     if (error.response?.status === 401 && !isAuthCall) {
       useAuthStore.getState().logout();
       window.location.assign("/login");

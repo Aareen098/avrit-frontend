@@ -21,3 +21,11 @@ export const CANDIDATE_NAV = [
   { to: "/careers", label: "Browse jobs" },
   { to: "/portal/profile", label: "Profile" },
 ];
+
+// Menu for the platform owner.
+export const PLATFORM_NAV = [
+  { to: "/platform", label: "Overview", icon: "insights", end: true },
+  { to: "/platform/companies", label: "Companies", icon: "apartment" },
+  { to: "/platform/billing", label: "Billing", icon: "receipt_long" },
+  { to: "/platform/broadcast", label: "Broadcast", icon: "campaign" },
+];
